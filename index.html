@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हिंदी PDF से खोज योग्य PDF कनवर्टर (टेबल डिटेक्शन के साथ)</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="language-toggle" id="languageToggle">EN</button>
+            <h1 id="mainTitle">Hindi PDF to Searchable PDF Converter</h1>
+            <div class="hindi-title hindi-text" id="hindiTitle">हिंदी PDF से खोज योग्य PDF कनवर्टर (स्ट्रक्चरल डिटेक्शन)</div>
+            <p class="subtitle" id="subtitle1">वोटर लिस्ट PDF को खोज योग्य और संरचित बनाएं</p>
+            <p class="subtitle hindi-text" id="subtitle2">Convert voter list PDF to searchable and structured format</p>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </header>
+        
+        <div class="ad-banner">
+            <div class="ad-content">
+                <div class="ad-title">INGENIOUS CLASSES</div>
+                <div class="ad-subjects">
+                    <span>MATHEMATICS</span> | 
+                    <span>PHYSICS</span> | 
+                    <span>CHEMISTRY</span> | 
+                    <span>BIOLOGY</span> | 
+                    <span>JAVA</span> | 
+                    <span>PYTHON</span>
+                </div>
+                <div class="ad-contact">
+                    <span>Contact: +8077103591</span>
+                    <span>Email: ingeniousclasses2022@gmail.com</span>
+                </div>
+                <div class="ad-address">Maliyoki puliya, Opp. Khan Complex, National School, Civil Lines, Bareilly</div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                 
+                <div class="card">
+                    <h2 class="hindi-text" id="uploadTitle">PDF अपलोड करें</h2>
+                    <div class="upload-area" id="dropArea">
+                        <div class="upload-icon">📄</div>
+                        <p class="hindi-text" id="uploadText">अपनी PDF वोटर सूची यहाँ खींचें और छोड़ें</p>
+                        <p id="orText">या</p>
+                        <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+                        <button class="btn" id="browseBtn">फ़ाइलें ब्राउज़ करें</button>
+                    </div>
+                    
+                    <div class="file-info" id="fileInfo">
+                        <strong id="selectedFile">चयनित फ़ाइल:</strong> <span id="fileName">-</span><br>
+                        <strong id="fileSizeText">आकार:</strong> <span id="fileSize">-</span>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">प्रक्रिया शुरू करने के लिए PDF अपलोड करें</div>
+                    </div>
+                    
+                    <div class="status" id="statusMessage">
+                        PDF अपलोड करके प्रक्रिया शुरू करें
+                    </div>
+
+                    <button class="btn full-width-btn" id="processBtn" disabled>PDF प्रोसेस करें</button>
+                </div>
+                
+                <div class="card">
+                    <h2 class="hindi-text" id="processingTitle">प्रसंस्करण स्थिति</h2>
+                    <div class="processing-steps" id="processingSteps">
+                        <div class="step-item">
+                            <div class="step-icon" id="step1">1</div>
+                            <div class="step-text">PDF लोड हो रहा है</div>
+                            <div class="step-status" id="step1Status">प्रतीक्षा</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon" id="step2">2</div>
+                            <div class="step-text">पाठ निष्कर्षण और लेआउट विश्लेषण</div>
+                            <div class="step-status" id="step2Status">प्रतीक्षा</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon" id="step3">3</div>
+                            <div class="step-text">हिंदी OCR प्रसंस्करण</div>
+                            <div class="step-status" id="step3Status">प्रतीक्षा</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon" id="step4">4</div>
+                            <div class="step-text">टेबल डिटेक्शन और स्ट्रक्चर एनालिसिस</div>
+                            <div class="step-status" id="step4Status">प्रतीक्षा</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon" id="step5">5</div>
+                            <div class="step-text">खोज योग्य PDF जनरेशन</div>
+                            <div class="step-status" id="step5Status">प्रतीक्षा</div>
+                        </div>
+                        <div class="step-item">
+                            <div class="step-icon" id="step6">6</div>
+                            <div class="step-text">JSON एक्सट्रैक्शन</div>
+                            <div class="step-status" id="step6Status">प्रतीक्षा</div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-note">
+                        <strong>नोट:</strong> स्ट्रक्चरल एनालिसिस फीचर वर्तमान में काम नहीं कर रहा है। यह अभी विकास के अधीन है।
+                    </div>
+                    
+                    <div class="table-detection-info" id="tableDetectionInfo">
+                        <strong>टेबल विश्लेषण:</strong> <span id="tableCount">0</span> टेबल्स डिटेक्ट किए गए
+                    </div>
+                </div>
+               
+            </div>
+            
+            <div class="preview-panel">
+                <div class="card">
+                    <h2 class="hindi-text" id="previewTitle">पूर्वावलोकन</h2>
+                    
+                    <div class="search-card">
+                        <h2 class="hindi-text" id="searchTitle">खोज करें</h2>
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="नाम खोजें..." class="hindi-text">
+                            <button id="searchBtn">खोजें</button>
+                        </div>
+                        
+                        <div class="results-info" id="resultsInfo">
+                            <span class="hindi-text">मिले:</span> <span id="matchCount">0</span> 
+                            <span class="hindi-text">मिलान।</span> <span id="currentMatch">0</span>/<span id="totalMatches">0</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="tabs">
+                        <li id="originalTab" class="active">ओरिजिनल PDF</li>
+                        <li id="processedTab">प्रोसेस्ड स्ट्रक्चर</li>
+                        <li id="structuredPdfTab">स्ट्रक्चर्ड PDF व्यू</li>
+                    </ul>
+                    
+                    <div class="zoom-controls">
+                        <button class="zoom-btn" id="zoomOut">छोटा करें (-)</button>
+                        <button class="zoom-btn" id="zoomIn">बड़ा करें (+)</button>
+                        <button class="zoom-btn" id="fitWidth">फिट टू विड्थ</button>
+                        <span style="margin-left: 10px; font-size: 0.9rem;">
+                            <span class="hindi-text">ज़ूम:</span> <span id="zoomLevel">100%</span>
+                        </span>
+                    </div>
+                   
+                    <div class="tab-content active" id="originalContent">
+                        <div class="pdf-preview-container" id="pdfPreviewContainer">
+                            <div class="pdf-preview" id="pdfPreview">
+                                <p style="text-align: center; margin-top: 50px; color: #666;" class="hindi-text">
+                                    पूर्वावलोकन करने के लिए PDF अपलोड करें
+                                </p>
+                            </div>
+                            <div class="text-layer" id="textLayer"></div> 
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="processedContent">
+                        <div class="processed-preview" id="processedPreview">
+                            <p style="text-align: center; margin-top: 50px; color: #666;" class="hindi-text">
+                                प्रोसेस्ड डेटा देखने के लिए PDF प्रोसेस करें
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="structuredPdfContent">
+                        <div class="processed-preview" id="structuredPdfPreview">
+                            <p style="text-align: center; margin-top: 50px; color: #666;" class="hindi-text">
+                                प्रोसेस्ड डेटा देखने के लिए PDF प्रोसेस करें
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="page-info">
+                        <span class="hindi-text">पृष्ठ:</span> <span id="pageNum">0</span> / <span id="pageCount">0</span>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="nav-btn" id="prevPage" disabled>⬅️ पिछला</button>
+                        <button class="nav-btn" id="nextPage" disabled>अगला ➡️</button>
+                        <button class="nav-btn" id="prevMatch" disabled>⬆️ पिछला मिलान</button>
+                        <button class="nav-btn" id="nextMatch" disabled>अगला मिलान ⬇️</button>
+                    </div>
+
+                    <div class="download-options">
+                        <button class="btn download-btn" id="downloadBtn" disabled>खोज योग्य PDF डाउनलोड करें</button>
+                        <button class="btn download-btn" id="downloadJsonBtn" disabled>JSON डाउनलोड करें</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p class="hindi-text" id="footerText1">हिंदी PDF कनवर्टर - संरचनात्मक टेक्स्ट निष्कर्षण पर केंद्रित</p>
+            <p id="footerText2">Hindi PDF Converter - Focused on structural text extraction</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
